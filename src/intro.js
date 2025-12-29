@@ -1,5 +1,5 @@
 // create HTML page
-const html = `
+const html = (hostname) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,7 +189,7 @@ const html = `
             </div>
         </div>
         <div class="text-center mt-5">
-            <a href="https://oebb.macistry.com/api" class="btn btn-primary btn-lg" target="_blank">
+            <a href="https://${hostname}/api" class="btn btn-primary btn-lg" target="_blank">
                 <i class="bi bi-link-45deg"></i> Try the API
             </a>
         </div>

@@ -1,4 +1,4 @@
-const docs = `
+const docs = (hostname) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,7 +124,7 @@ const docs = `
         <h1><i class="bi bi-train-front-fill"></i> OEBB Transport REST API</h1>
         <p class="lead">A modern, reliable, and easy-to-use API for Austrian rail and public transport data.<br>
         Real-time journeys, departures, arrivals, radar, and more – all in one place.</p>
-        <a href="https://oebb.macistry.com/api" class="api-link" target="_blank">
+        <a href="https://${hostname}/api" class="api-link" target="_blank">
             <i class="bi bi-link-45deg"></i> Explore the API
         </a>
     </section>
@@ -226,14 +226,14 @@ const docs = `
             </div>
         </div>
         <div class="text-center mt-5">
-            <a href="https://oebb.macistry.com/api" class="api-link" target="_blank">
+            <a href="https://${hostname}/api" class="api-link" target="_blank">
                 <i class="bi bi-link-45deg"></i> Open API Endpoint
             </a>
         </div>
         <div class="row mt-5">
             <div class="col text-center">
                 <h5>API Version: <span class="badge bg-primary">1.0.1</span></h5>
-                <h6>Host: <br/><span class="text-muted">v6.oebb.transport.rest<br/>oebb.macistry.com</span></h6>
+                <h6>Host: <br/><span class="text-muted">${hostname}</span></h6>
             </div>
         </div>
     </div>
@@ -249,5 +249,5 @@ const docs = `
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-`
+`;
 export default docs
