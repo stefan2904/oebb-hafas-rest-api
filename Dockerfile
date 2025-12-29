@@ -13,6 +13,9 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY index.js  /app
 COPY src /app/src
 
+RUN apk add --no-cache tzdata
+ENV TZ="Europe/Vienna"
+RUN date
 
 # EnvVars:
 # - APP_HOSTNAME
