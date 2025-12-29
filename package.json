@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "webpack-cli": "^5.1.4"
+  },
+  "peerDependencies": {
+    "hafas-client": "^6.3.6"
   }
 }
