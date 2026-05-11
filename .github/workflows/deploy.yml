@@ -19,4 +19,5 @@ jobs:
             cd /var/www/oebb.macistry.com
             git pull
             npm install
+            fuser -k 3000/tcp || true
             pm2 restart oebb.macistry.com
