@@ -650,7 +650,7 @@ console.log(journeyData.journeys?.length || 0);</pre></div>
             </section>
 
             <footer class="section footer">
-                <div>API version: 1.1.1 | Node + Express + hafas-rest-api</div>
+                <div>API version: 1.1.2 | Node + Express + hafas-rest-api</div>
                 <div><a href="/">Back to homepage</a></div>
             </footer>
         </main>
