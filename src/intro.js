@@ -5,187 +5,552 @@ const html = (hostname) => `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oebb.transport.rest - OEBB REST API</title>
-    <!-- Bootstrap CSS & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <title>oebb.transport.rest | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Merriweather:wght@700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #f5f6f8;
+            --paper: #ffffff;
+            --ink: #1c2933;
+            --ink-soft: #4d5f6c;
+            --line: #dce3e8;
+            --line-strong: #c8d2da;
+            --accent: #e2001a;
+            --code-bg: #10161b;
+            --code-fg: #dce8f3;
+            --radius: 14px;
+            --shadow: 0 10px 30px rgba(15, 28, 40, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f8f9fa;
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 19px;
+            line-height: 1.66;
+            min-height: 100vh;
         }
-        .navbar {
-            margin-bottom: 0;
-        }
-        .hero-section {
-            background: linear-gradient(120deg, #007bff 0%, #6610f2 100%);
-            background-size: 200% 200%;
-            animation: gradientMove 6s ease-in-out infinite;
-            color: #fff;
-            padding: 5rem 2rem 3rem 2rem;
-            text-align: center;
-            border-bottom-left-radius: 2rem;
-            border-bottom-right-radius: 2rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-        }
-        @keyframes gradientMove {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
-        .hero-section h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-        .hero-section p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-        .btn-light {
-            font-size: 1.2rem;
-            font-weight: 600;
+
+        .top {
+            border-bottom: 1px solid var(--line-strong);
             background: #fff;
-            color: #6610f2;
-            border: none;
-            border-radius: 2rem;
-            padding: 0.75rem 2rem;
-            box-shadow: 0 2px 8px rgba(102,16,242,0.12);
-            transition: background 0.2s, color 0.2s;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .top-inner {
+            width: min(1180px, calc(100% - 2rem));
+            margin: 0 auto;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
             text-decoration: none;
+            color: var(--ink);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
         }
-        .btn-light:hover {
-            background: #6610f2;
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(145deg, var(--accent) 0%, #ff4b61 100%);
+            position: relative;
+            box-shadow: 0 6px 14px rgba(226, 0, 26, 0.24);
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 999px;
+        }
+
+        .brand-mark::before { top: 11px; }
+        .brand-mark::after { top: 18px; }
+
+        .nav {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            padding: 0.35rem 0.65rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .nav a:hover {
+            border-color: var(--line-strong);
+            color: var(--ink);
+            background: #fafcfd;
+        }
+
+        .nav a.active {
+            border-color: var(--line-strong);
+            color: var(--ink);
+            background: #f8fafc;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 2rem));
+            margin: 1.2rem auto 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.95rem;
+        }
+
+        .hero {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.35rem 1.3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 7px;
+            background: linear-gradient(var(--accent), #ff4b61);
+        }
+
+        .eyebrow {
+            margin: 0;
+            color: var(--ink-soft);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        h1,
+        h2,
+        h3 {
+            line-height: 1.24;
+            color: #101b24;
+        }
+
+        h1,
+        h2 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .hero h1 {
+            margin: 0.4rem 0 0.6rem;
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+        }
+
+        .hero p {
+            margin: 0.4rem 0 0;
+            color: var(--ink-soft);
+            max-width: 78ch;
+        }
+
+        .hero-actions {
+            margin-top: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .btn {
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 0.52rem 0.8rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+        }
+
+        .btn.primary {
+            background: var(--accent);
             color: #fff;
         }
-        .features-section {
-            margin-top: -3rem;
-            z-index: 2;
-            position: relative;
+
+        .btn.secondary {
+            background: #fff;
+            border-color: var(--line-strong);
+            color: var(--ink);
         }
-        .feature-card {
-            border: none;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-            transition: transform 0.15s;
+
+        .panel {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.15rem;
+            box-shadow: var(--shadow);
+        }
+
+        .panel h2 {
+            margin: 0;
+            font-size: clamp(1.36rem, 2.5vw, 1.74rem);
+        }
+
+        .panel h3 {
+            margin: 0;
+            font-size: 1.22rem;
+            color: #101b24;
+        }
+
+        .panel p {
+            margin: 0.4rem 0 0;
+            color: var(--ink-soft);
+            max-width: 74ch;
+        }
+
+        .stats {
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 0.8rem;
+        }
+
+        .stat-card {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fbfcfd;
+            padding: 0.78rem;
+        }
+
+        .stat-title {
+            margin: 0;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-soft);
+            font-weight: 700;
+        }
+
+        .stat-value {
+            margin: 0.25rem 0 0;
+            font-size: 1.16rem;
+            font-weight: 700;
+            color: #182833;
+            line-height: 1.35;
+        }
+
+        .grid {
+            margin-top: 0.8rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .feature {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 0.78rem;
             background: #fff;
         }
-        .feature-card:hover {
-            transform: translateY(-6px) scale(1.03);
+
+        .endpoint-grid {
+            margin-top: 0.8rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
         }
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #6610f2;
-            margin-bottom: 1rem;
+
+        .api-card {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fbfcfd;
+            padding: 0.9rem;
+            box-shadow: 0 4px 14px rgba(16, 27, 36, 0.04);
         }
-        .section-title {
-            font-size: 2.2rem;
+
+        .api-card h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .api-card p {
+            margin-top: 0.35rem;
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        .path {
+            display: inline-block;
+            margin-top: 0.45rem;
+            background: rgba(226, 0, 26, 0.08);
+            color: #8f1120;
+            border: 1px solid rgba(226, 0, 26, 0.2);
+            border-radius: 999px;
+            padding: 0.16rem 0.56rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 500;
+        }
+
+        .examples {
+            margin-top: 0.8rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .example-card {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .example-head {
+            background: #f6f9fb;
+            border-bottom: 1px solid var(--line);
+            padding: 0.45rem 0.65rem;
+            font-size: 0.86rem;
             font-weight: 700;
-            margin-top: 3rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #6610f2;
+            color: #273947;
         }
+
+        .quick {
+            margin-top: 0.8rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #1e2c36;
+        }
+
+        .quick-header {
+            background: #121a20;
+            color: #d4e3ee;
+            border-bottom: 1px solid #243544;
+            padding: 0.5rem 0.7rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        pre {
+            margin: 0;
+            padding: 0.8rem;
+            background: var(--code-bg);
+            color: var(--code-fg);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.65;
+            overflow-x: auto;
+        }
+
         .footer {
-            background: #222;
-            color: #fff;
-            text-align: center;
-            padding: 1.5rem 0 0.5rem 0;
-            margin-top: 4rem;
-            border-top-left-radius: 2rem;
-            border-top-right-radius: 2rem;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.85rem 1rem;
+            box-shadow: var(--shadow);
+            color: var(--ink-soft);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
-        @media (max-width: 767px) {
-            .hero-section { padding: 3rem 1rem 2rem 1rem; }
-            .section-title { font-size: 1.5rem; }
+
+        .footer a {
+            color: #2d4658;
         }
-        .scroll-down {
-            position: absolute;
-            left: 50%;
-            bottom: 0.1em;
-            transform: translateX(-50%);
-            font-size: 2.5rem;
-            color: #fff;
-            opacity: 0.7;
-            cursor: pointer;
-            animation: bounce 2s infinite;
+
+        @media (max-width: 980px) {
+            .stats,
+            .grid,
+            .endpoint-grid,
+            .examples {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0);}
-            50% { transform: translateX(-50%) translateY(12px);}
+
+        @media (max-width: 760px) {
+            body {
+                font-size: 18px;
+            }
+
+            .page,
+            .top-inner {
+                width: min(1180px, calc(100% - 1rem));
+            }
+
+            .page {
+                margin-top: 0.9rem;
+            }
+
+            .stats,
+            .grid,
+            .endpoint-grid,
+            .examples {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                gap: 0.35rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">OEBB Transport</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/docs">API Documentation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/nocontent06/oebb.transport.rest">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="mailto:admin@macistry.com">Contact</a>
-                    </li>
-                </ul>
-            </div>
+    <header class="top">
+        <div class="top-inner">
+            <a class="brand" href="/">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span>oebb.transport.rest</span>
+            </a>
+            <nav class="nav">
+                <a class="active" href="/">Home</a>
+                <a href="/docs">Documentation</a>
+                <a href="/api">API Base</a>
+                <a href="https://github.com/nocontent06/oebb.transport.rest" target="_blank" rel="noreferrer">GitHub</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <div class="hero-section position-relative">
-        <h1><i class="bi bi-train-front-fill"></i> OEBB Transport REST API</h1>
-        <p class="lead">The modern way to interact with OEBB services.<br>
-        Real-time journeys, departures, arrivals, radar, and more – all in one place.</p>
-        <a href="/docs" class="btn btn-light btn-lg mt-3">
-            <i class="bi bi-book"></i> Get Started
-        </a>
-        <div class="scroll-down" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
-            <i class="bi bi-chevron-double-down"></i>
-        </div>
-    </div>
+    <div class="page">
+        <section class="hero">
+            <p class="eyebrow">Austrian public transport REST API</p>
+            <h1>Build train and mobility apps on top of reliable OEBB data.</h1>
+            <p>oebb.transport.rest exposes HAFAS capabilities in a stable HTTP interface, so you can power journey planners, departure boards, and station intelligence with real-time transport data.</p>
+            <div class="hero-actions">
+                <a class="btn primary" href="/docs">Read documentation</a>
+                <a class="btn secondary" href="/api">Open raw API</a>
+            </div>
+        </section>
 
-    <!-- Features Section -->
-    <div class="container features-section" id="features">
-        <h2 class="section-title">Why OEBB Transport API?</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card feature-card h-100 text-center">
-                    <div class="card-body">
-                        <div class="feature-icon"><i class="bi bi-clock-history"></i></div>
-                        <h5 class="card-title">Real-Time Updates</h5>
-                        <p class="card-text">Stay up to date with real-time train schedules and journey data for Austrian railway services.</p>
-                    </div>
-                </div>
+        <section class="panel">
+            <h2>At a glance</h2>
+            <div class="stats">
+                <article class="stat-card">
+                    <p class="stat-title">Coverage</p>
+                    <p class="stat-value">Journeys, stops, trips, radar</p>
+                </article>
+                <article class="stat-card">
+                    <p class="stat-title">Base path</p>
+                    <p class="stat-value">/api</p>
+                </article>
+                <article class="stat-card">
+                    <p class="stat-title">Format</p>
+                    <p class="stat-value">JSON over HTTP</p>
+                </article>
             </div>
-            <div class="col-md-4">
-                <div class="card feature-card h-100 text-center">
-                    <div class="card-body">
-                        <div class="feature-icon"><i class="bi bi-plug"></i></div>
-                        <h5 class="card-title">Easy Integration</h5>
-                        <p class="card-text">Seamlessly integrate the OEBB Transport API into your application for smooth transportation data integration.</p>
-                    </div>
-                </div>
+
+            <div class="grid" id="features">
+                <article class="feature">
+                    <h3>Live departures</h3>
+                    <p>Show station boards with delays, directions, and platform context.</p>
+                </article>
+                <article class="feature">
+                    <h3>Journey planning</h3>
+                    <p>Plan and refresh connections between stations and cities.</p>
+                </article>
+                <article class="feature">
+                    <h3>Radar and nearby</h3>
+                    <p>Build map experiences with live vehicle positions and nearby stop search.</p>
+                </article>
             </div>
-            <div class="col-md-4">
-                <div class="card feature-card h-100 text-center">
-                    <div class="card-body">
-                        <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
-                        <h5 class="card-title">Reliable Data</h5>
-                        <p class="card-text">Access reliable and accurate data from OEBB’s services, ensuring the best experience for your users.</p>
-                    </div>
+        </section>
+
+        <section class="panel">
+            <h2>Popular Endpoints</h2>
+            <p>Use these routes as building blocks for station finders, departure boards, journey planning, and map views.</p>
+
+            <div class="endpoint-grid">
+                <article class="api-card">
+                    <h3>Nearby Locations</h3>
+                    <p>Find stops, addresses, and points of interest near a coordinate.</p>
+                    <span class="path">/locations/nearby</span>
+                </article>
+                <article class="api-card">
+                    <h3>Location Search</h3>
+                    <p>Search stops and places by text input such as city or station name.</p>
+                    <span class="path">/locations</span>
+                </article>
+                <article class="api-card">
+                    <h3>Stop Information</h3>
+                    <p>Load details about a station or stop with identifier-based lookup.</p>
+                    <span class="path">/stops/:id</span>
+                </article>
+                <article class="api-card">
+                    <h3>Departures & Arrivals</h3>
+                    <p>Read upcoming departures and arrivals, including delay and direction.</p>
+                    <span class="path">/stops/:id/departures</span>
+                </article>
+                <article class="api-card">
+                    <h3>Journeys</h3>
+                    <p>Plan routes between two places with transfer and timing details.</p>
+                    <span class="path">/journeys</span>
+                </article>
+                <article class="api-card">
+                    <h3>Reachable From</h3>
+                    <p>Find stops reachable from one origin under time and transfer limits.</p>
+                    <span class="path">/stops/reachable-from</span>
+                </article>
+                <article class="api-card">
+                    <h3>Trip Details</h3>
+                    <p>Fetch trip stopovers and route shape for a specific service.</p>
+                    <span class="path">/trips/:id</span>
+                </article>
+                <article class="api-card">
+                    <h3>Live Radar</h3>
+                    <p>Track moving vehicles in a bounding box area.</p>
+                    <span class="path">/radar</span>
+                </article>
+                <article class="api-card">
+                    <h3>Refresh Journey</h3>
+                    <p>Refresh a stored journey reference and get current status updates.</p>
+                    <span class="path">/journeys/:ref</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Quick Start</h2>
+            <p>Try these endpoints locally on port 3000.</p>
+            <div class="quick">
+                <div class="quick-header">
+                    <span>Example requests</span>
+                    <span>Base URL: http://localhost:3000/api</span>
                 </div>
+                <pre>curl "http://localhost:3000/api/journeys?from=Wien%20Hbf&to=Salzburg%20Hbf&results=3"
+
+curl "http://localhost:3000/api/stops/8103000/departures?duration=120"
+
+curl "http://localhost:3000/api/locations?query=Graz"</pre>
             </div>
         </div>
         <div class="text-center mt-5">
@@ -194,22 +559,8 @@ const html = (hostname) => `
             </a>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer mt-5">
-        <div class="container">
-            <p class="mb-1">&copy; 2024 OEBB Transport REST API &mdash; All Rights Reserved</p>
-            <small>
-                <a href="https://github.com/nocontent06/oebb.transport.rest" class="text-light text-decoration-underline" target="_blank"><i class="bi bi-github"></i> GitHub</a>
-            </small>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 `;
-
 
 export default html
